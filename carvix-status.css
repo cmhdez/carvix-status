@@ -1,0 +1,258 @@
+/* Design and created with ❤ by Carlos M. Hernandez */
+/* carvix-status.css: status.carvix.com (Upptime). Loaded through status-website.themeUrl,
+   so it REPLACES Upptime's light/dark theme and carries both schemes itself.
+   Values are tokens.json (packages/config/src/theme/tokens.json, color.carvix.light / .dark,
+   layout.maxContent, layout.headerHeight, radius). Board: CX-00-20 / 20B / 20C, notes on CX-00-20S. */
+
+/* 1. Upptime's own theme variables (global.css reads these) */
+:root {
+  --body-background-color: #FFFFFF;          /* light.backgroundDefault */
+  --body-text-color: #1A1A1A;                /* light.textPrimary */
+  --card-background-color: #FFFFFF;          /* light.backgroundPaper */
+  --card-border-color: #E4E4E5;              /* light.divider */
+  --nav-background-color: #FFFFFF;
+  --nav-border-bottom-color: #E4E4E5;
+  --nav-current-border-bottom-color: #A4130E;/* light.primary */
+  --down-border-left-color: #A4130E;         /* light.error */
+  --down-background-color: #FBEAEA;          /* light.errorContainer */
+  --degraded-border-left-color: #8A5A00;     /* light.warning */
+  --up-border-left-color: #007A3D;           /* light.success */
+  --tag-color: #FFFFFF;
+  --tag-up-background-color: #007A3D;
+  --tag-down-background-color: #A4130E;
+  --tag-degraded-background-color: #8A5A00;
+  --change-background-color: #F5F5F6;        /* light.surface */
+  --error-button-border-color: #A4130E;
+  --error-button-background-color: #A4130E;
+  --error-button-color: #FFFFFF;
+  --submit-button-border-color: #A4130E;
+  --submit-button-background-color: #A4130E;
+  --submit-button-color: #FFFFFF;
+  --graph-opacity: 1;
+  --graph-filter: none;
+  /* Carvix roles used below */
+  --cx-ink2: #4D4D4D;            /* light.textSecondary */
+  --cx-surface: #F5F5F6;         /* light.surface */
+  --cx-control: #868686;         /* light.border */
+  --cx-focus: #1A1A1A;           /* light.focus */
+  --cx-up: #007A3D;   --cx-up-bg: #E8F5EE;     /* success / successContainer */
+  --cx-slow: #8A5A00; --cx-slow-bg: #FFF6E0;   /* warning / warningContainer */
+  --cx-down: #A4130E; --cx-down-bg: #FBEAEA;   /* error / errorContainer */
+  --cx-info: #4D4D4D; --cx-info-bg: #F5F5F6;   /* info / infoContainer (maintenance) */
+  --cx-graph-filter: grayscale(1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-background-color: #141414;        /* dark.backgroundDefault */
+    --body-text-color: #ECECEC;              /* dark.textPrimary */
+    --card-background-color: #1E1E1E;        /* dark.backgroundPaper */
+    --card-border-color: #323232;            /* dark.divider */
+    --nav-background-color: #1E1E1E;
+    --nav-border-bottom-color: #323232;
+    --nav-current-border-bottom-color: #F56F5F; /* dark.primaryText */
+    --down-border-left-color: #F59992;       /* dark.error */
+    --down-background-color: #3A1614;        /* dark.errorContainer */
+    --degraded-border-left-color: #E0B25C;   /* dark.warning */
+    --up-border-left-color: #70BE86;         /* dark.success */
+    --tag-color: #141414;
+    --tag-up-background-color: #70BE86;
+    --tag-down-background-color: #F59992;
+    --tag-degraded-background-color: #E0B25C;
+    --change-background-color: #262626;
+    --error-button-border-color: #C9150C;
+    --error-button-background-color: #C9150C;
+    --submit-button-border-color: #C9150C;
+    --submit-button-background-color: #C9150C;
+    --cx-ink2: #A4A4A5; --cx-surface: #262626; --cx-control: #868686; --cx-focus: #ECECEC;
+    --cx-up: #70BE86;   --cx-up-bg: #16301F;
+    --cx-slow: #E0B25C; --cx-slow-bg: #3A2E14;
+    --cx-down: #F59992; --cx-down-bg: #3A1614;
+    --cx-info: #C4C4C4; --cx-info-bg: #262626;
+    --cx-graph-filter: grayscale(1) brightness(.55);
+  }
+}
+
+/* 2. Type and frame (Inter body, Montserrat headings: fonts via status-website.links) */
+body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; }
+h1, h2 { font-family: Montserrat, "Helvetica Neue", Arial, sans-serif; font-weight: 700; }
+h1 { font-size: 40px; line-height: 1.15; }
+h2 { font-size: 24px; }
+h3 { opacity: 1; color: var(--cx-ink2); font-size: 14px; font-weight: 600; }
+.container { max-width: 1264px; padding: 0 32px; }   /* layout.maxContent */
+p.lead { color: var(--cx-ink2); font-size: 18px; max-width: 720px; }
+a:focus-visible, input:focus-visible + label { outline: 3px solid var(--cx-focus); outline-offset: 2px; border-radius: 8px; }
+
+/* 3. Header: wordmark (logoUrl, hideNavTitle) + Status / carvix.com (navbar) */
+nav { padding: 0 32px; font-weight: 600; }
+nav .container { padding: 0; height: 72px; }          /* layout.headerHeight.desktop */
+nav .logo { padding: 0; margin-right: 16px; }
+nav .logo img { height: 22px; margin: 0; border-radius: 0; }
+nav ul a { padding: 0 16px; height: 72px; display: flex; align-items: center; font-size: 15px; }
+[aria-current] { border-bottom-width: 2px; }
+
+/* 4. Cards and states: icon + words + colour, never colour alone */
+article { border-radius: 12px; padding: 16px 20px; }
+article.down, article.degraded, article.up { border-left-width: 4px; }
+article h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 2px; font-size: 16px; }
+article.link a { font-weight: 600; text-decoration: underline; min-height: 44px; display: inline-flex; align-items: center; }
+article.down h4::before {   /* active and past incidents; live-status cards opt out below */
+  content: ""; width: 20px; height: 20px; flex: none; background: var(--cx-down);
+  -webkit-mask: var(--cx-i-down) center / contain no-repeat; mask: var(--cx-i-down) center / contain no-repeat;
+}
+article.down-active.degraded { background: var(--cx-slow-bg); border-color: var(--cx-slow); }
+article.down.degraded h4::before { background: var(--cx-slow) !important; -webkit-mask-image: var(--cx-i-slow) !important; mask-image: var(--cx-i-slow) !important; }
+/* maintenance = degraded-active (upcoming) and degraded without down (past): neutral + wrench */
+article.degraded-active, article.degraded:not(.down) { background: var(--card-background-color); border-color: var(--card-border-color); border-left-color: var(--cx-info) !important; }
+article.degraded-active h4::before, article.degraded:not(.down) h4::before {
+  content: ""; width: 20px; height: 20px; flex: none; background: var(--cx-info);
+  -webkit-mask: var(--cx-i-maint) center / contain no-repeat; mask: var(--cx-i-maint) center / contain no-repeat;
+}
+/* "Completed" on past maintenance is a literal in Upptime's code, not i18n: replaced here */
+article.degraded:not(.down):not(.degraded-active) .f > div > div { font-size: 0; }
+article.degraded:not(.down):not(.degraded-active) .f > div > div::after { content: "Completed"; font-size: 16px; }
+
+/* 5. "All systems operational": hide Upptime's emoji, draw the circle-check, repeat the sentence */
+main > article.up { font-size: 0; display: flex; align-items: center; gap: 10px; border-left-color: var(--cx-up) !important; background: var(--cx-up-bg); margin-bottom: 32px; }
+main > article.up::before { content: ""; width: 24px; height: 24px; background: var(--cx-up); -webkit-mask: var(--cx-i-up) center / contain no-repeat; mask: var(--cx-i-up) center / contain no-repeat; }
+main > article.up::after { content: "All systems operational"; font-size: 18px; font-weight: 700; color: var(--body-text-color); } /* = i18n.allSystemsOperational */
+
+/* 6. Live status: range switch (keyboard-reachable), cards with a state chip and the graph */
+.r input { display: inline !important; position: absolute; opacity: 0; width: 1px; height: 1px; }
+form.r { border: 1px solid var(--card-border-color); border-radius: 999px; padding: 3px; gap: 2px; }
+.r label { margin: 0 !important; display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.r input:checked + label { background: var(--body-text-color); color: var(--body-background-color); font-weight: 700; }
+section.live-status article { min-height: 112px; padding-right: 44%; background-image: none !important; }
+section.live-status article::after { content: ""; position: absolute; top: 12px; right: 16px; bottom: 12px; width: 40%; pointer-events: none;
+  background: var(--background) right center / 100% 100% no-repeat; filter: var(--cx-graph-filter); }
+section.live-status article h4::before { content: none !important; }
+section.live-status article .data { font-weight: 700; font-variant-numeric: tabular-nums; }
+section.live-status article h4::after { margin-left: 4px; display: inline-flex; align-items: center; height: 26px; padding: 0 10px 0 28px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  background-position: 9px center; background-size: 14px 14px; background-repeat: no-repeat; }
+section.live-status article.up h4::after { content: "Up"; color: var(--cx-up); background-color: var(--cx-up-bg); background-image: var(--cx-i-up-g); }
+section.live-status article.degraded h4::after { content: "Slow"; color: var(--cx-slow); background-color: var(--cx-slow-bg); background-image: var(--cx-i-slow-g); }
+section.live-status article.down h4::after { content: "Down"; color: var(--cx-down); background-color: var(--cx-down-bg); background-image: var(--cx-i-down-g); }
+/* chip words = i18n up / degraded / down */
+section.live-status .icon { height: 20px; }
+@media (prefers-color-scheme: dark) { section.live-status .icon { filter: invert(.92); } }
+
+/* 7. Incident report page: timeline of updates; GitHub link hidden */
+main > section > .f > .r { display: none; }                 /* incidentViewOnGitHub */
+main > section:has(> .f > dl) > article { border: 0; border-left: 2px solid var(--card-border-color); border-radius: 0; margin: 0 0 0 9px; padding: 0 0 24px 24px; background: transparent; }
+main > section:has(> .f > dl) > article::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--body-text-color); }
+main > section:has(> .f > dl) > article > div { color: var(--cx-ink2); font-size: 14px; }
+main > section:has(> .f > dl) > article > div a { color: inherit; }
+.tag { font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; }
+dl dd { margin: 0; }
+
+/* 8. Footer: the credit line (i18n.footer), full contrast */
+footer { opacity: 1; color: var(--cx-ink2); font-size: 14px; border-top: 1px solid var(--card-border-color); padding: 24px 16px 0; font-variant-emoji: text; }
+main > footer { border: 0; padding: 0; }
+
+/* 9. Tablet and phone */
+@media (max-width: 599px) {
+  .container, nav { padding: 0 16px; }
+  nav .container { height: 56px; }                   /* layout.headerHeight.phone */
+  nav .logo img { height: 18px; }
+  nav ul a { height: 56px; padding: 0 10px; }
+  h1 { font-size: 30px; }
+  p.lead { font-size: 16px; }
+  .r label { padding: 0 11px; }
+  section.live-status article { padding-right: 20px; padding-bottom: 76px; }
+  section.live-status article::after { top: auto; left: 20px; right: 20px; bottom: 12px; width: auto; height: 56px; }
+}
+
+/* 10. Reduced motion */
+@media (prefers-reduced-motion: reduce) { .data { transition: none !important; } .changed + section .data { background: transparent !important; } }
+
+/* Icons: Lucide (ISC), inline data URIs, never a CDN */
+:root {
+  --cx-i-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+  --cx-i-slow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+  --cx-i-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m15 9-6 6'/%3E%3Cpath d='m9 9 6 6'/%3E%3C/svg%3E");
+  --cx-i-maint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a6 6 0 0 1-8.3 7.1l-7.9 7.9a1 1 0 0 1-3-3l7.9-7.9a6 6 0 0 1 7.1-8.3z'/%3E%3C/svg%3E");
+  /* chip icons are coloured copies (the chip's word colour per scheme): --cx-i-up-g / -slow-g / -down-g,
+     the same paths with stroke='%23007A3D' / '%238A5A00' / '%23A4130E' (dark: %2370BE86 / %23E0B25C / %23F59992) */
+}
+/* 11. Chip icons: the coloured copies described above, light and dark */
+:root {
+  --cx-i-up-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007A3D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+  --cx-i-slow-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A5A00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+  --cx-i-down-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A4130E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m15 9-6 6'/%3E%3Cpath d='m9 9 6 6'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cx-i-up-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2370BE86' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+    --cx-i-slow-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E0B25C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+    --cx-i-down-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F59992' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m15 9-6 6'/%3E%3Cpath d='m9 9 6 6'/%3E%3C/svg%3E");
+  }
+}
+/* 12. Cascade fixes found when the built page was compared with the boards (2026-11-01).
+   Upptime's component styles are scoped (.svelte-xxxx classes), so they outrank the
+   plain selectors above; these lines restate the board's values where that happens. */
+main.container { max-width: 1328px; padding-top: 40px; }   /* 1264 content + 2 × 32 gutter, as drawn */
+nav { margin-bottom: 0 !important; padding: 0 32px !important; font-weight: 600 !important; }
+nav .logo { padding: 0 !important; margin-right: 16px !important; }
+nav .logo img { height: 22px !important; margin: 0 !important; border-radius: 0 !important; }
+nav ul a { display: flex !important; align-items: center; padding: 0 16px !important; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; }
+nav ul a[aria-current] { border-bottom-color: var(--nav-current-border-bottom-color); }
+header { margin-bottom: 32px !important; }
+h1 { margin: 0 0 8px; }
+h2 { margin: 0 0 12px; line-height: 1.2; }
+h3 { opacity: 1 !important; margin: 16px 0 8px; line-height: 1.5; }
+p.lead { font-size: 18px !important; margin: 0; }
+section { margin-bottom: 32px; }
+section + h2 { margin-top: 0; }
+*, *::before, *::after { box-sizing: border-box; }   /* the boards are drawn border-box */
+article h4 { line-height: 1.3; font-weight: 700; }
+article.link a { min-height: 0; display: inline; text-decoration: none; }
+article.link .r a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; text-decoration: underline; }
+section.live-status article { padding: 16px 44% 16px 20px; }
+section.live-status article h4 a { font-weight: 700; }
+section.live-status .icon { height: 20px !important; width: 20px; margin: 0 !important; transform: none !important; }
+section.live-status .data { padding: 0 !important; }
+footer { margin-top: 48px; }
+footer p { margin: 0; }
+@media (max-width: 599px) {
+  main.container { padding: 24px 16px 0; }
+  nav { padding: 0 16px !important; }
+  nav .logo img { height: 18px !important; }
+  nav ul a { height: 56px; padding: 0 10px !important; font-size: 14.5px; }
+  p.lead { font-size: 16px !important; }
+  section.live-status article { padding: 16px 20px 76px; }
+}
+@media (min-width: 600px) and (max-width: 1023px) { main.container { padding-top: 32px; } }
+nav { overflow: visible !important; }
+/* Live-status cards that are slow are .degraded without .down, which the maintenance rule in
+   section 4 also matches: give them back the amber edge drawn on the board. */
+section.live-status article.degraded { border-left-color: var(--degraded-border-left-color) !important; }
+/* All-clear banner: one 10 px gap (Upptime's hidden emoji text would take a second one) and the green border */
+main > article.up { gap: 0 !important; border-color: var(--cx-up) !important; }
+main > article.up::before { margin-right: 10px; flex: none; }
+/* "Live status" heading and the range switch share one row, centred, as drawn */
+main > div.f { margin-bottom: 12px; gap: 12px; }
+main > div.f h2 { margin: 0; }
+/* Card rows: 8 px / 16 px gaps; on phones "See details" always takes its own line, as drawn */
+article .f { gap: 8px 16px; }
+@media (max-width: 599px) { article.link > .f > .r { flex-basis: 100%; } }
+/* Site cards: 114 px with an 80 px graph (16 px in from the edges), 40% of the content width, as drawn */
+section.live-status article { min-height: 114px; }
+section.live-status article::after { top: 16px; bottom: 16px; width: calc((100% - 36px) * .4); }
+/* Incident page (CX-00-20C): title row, tag, update paragraphs, "Back to status" */
+main > h2 { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 30px; line-height: 1.2 !important; margin: 0 0 20px; }
+main > h2 .tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; margin: 0; font-family: Inter, sans-serif; font-size: 13px; line-height: 1; }
+main > section > .f { margin-bottom: 28px; }
+main > section > .f > dl { margin: 0; }
+main > section:has(> .f > dl) > article p { margin: 0 0 4px !important; }
+main > section:has(> .f > dl) > article + article { margin-top: 0; }
+main > footer { margin-top: 0 !important; font-size: 16px; color: var(--body-text-color); text-align: left; }
+main > footer a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+@media (max-width: 599px) { main > h2 { font-size: 24px; } }
+/* "Status" is the only page link, so it reads as current on every page (incident pages too), as drawn */
+nav ul li:first-child a { border-bottom-color: var(--nav-current-border-bottom-color); }
+/* Phones: the graph is a strip under the words (section 9), restated after the desktop sizes above */
+@media (max-width: 599px) {
+  section.live-status article { padding-bottom: 80px; }   /* 8 px gap + 56 px graph + 16 px, as drawn */
+  section.live-status article::after { top: auto; left: 20px; right: 16px; bottom: 16px; width: auto; height: 56px; }
+}
+main > section:has(> .f > dl) > article code { font-size: 13px; line-height: 1; }   /* the commit in the automatic update */
