@@ -1,8 +1,8 @@
 [
   {
-    "name": "Carvix website",
+    "name": "Website (carvix.com)",
     "url": "https://carvix.com",
-    "icon": "https://icons.duckduckgo.com/ip3/carvix.com.ico",
+    "icon": "https://status.carvix.com/globe.svg",
     "slug": "website",
     "status": "up",
     "uptime": "100.00%",
@@ -10,11 +10,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 585,
-    "timeDay": 585,
-    "timeWeek": 585,
-    "timeMonth": 585,
-    "timeYear": 585,
+    "time": 571,
+    "timeDay": 571,
+    "timeWeek": 571,
+    "timeMonth": 571,
+    "timeYear": 571,
     "dailyMinutesDown": {}
   }
 ]
