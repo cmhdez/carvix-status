@@ -1,31 +1,72 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Design and created with ❤ by Carlos M. Hernandez
+#
+# Carvix status page and outside-AWS uptime checker (Upptime).
+# Docs: https://upptime.js.org/docs/configuration
+#
+# Rule: only public, customer-facing endpoints. Never admin.carvixone.com,
+# staff tools, or anything behind a sign-in.
+#
+# Paging: every downtime issue Upptime opens (labels `status` + the site
+# slug) pages PagerDuty through .github/workflows/pagerduty.yml, and closing
+# it resolves the incident. A new site is paged automatically.
+
+owner: cmhdez
+repo: carvix-status
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  # The shopper website. Today carvix.com 308-redirects to www.carvix.com
+  # (the current site, on Vercel); redirects are followed, so this stays
+  # valid when the platform's web app takes over the apex at launch.
+  - name: Carvix website
+    slug: website
+    url: https://carvix.com
 
+  # --- Not yet live: enable at production launch -------------------------
+  # Commented out, not listed, because they fail today and every failure
+  # pages PagerDuty (high urgency). Uncomment each one the day it serves.
+  #
+  # The platform API's liveness check (apps/api/src/health, the same path
+  # the load balancer probes). api.carvix.com does not resolve yet.
+  # - name: Carvix API
+  #   slug: api
+  #   url: https://api.carvix.com/health
+  #
+  # The Help Center (apps/web /help). 404 on the current carvix.com site.
+  # - name: Help Center
+  #   slug: help-center
+  #   url: https://carvix.com/help
+
+assignees:
+  - cmhdez
+
+# Keep every downtime issue, however short (Upptime otherwise deletes issues
+# closed within 15 minutes). The PagerDuty bridge resolves on close, and the
+# incident history stays complete.
+skipDeleteIssues: true
+
+# ===========================================================================
+# STATUS WEBSITE: hosting (do not change without changing DNS)
+# ===========================================================================
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
+  cname: status.carvix.com
+  name: Carvix status
+
+  # =========================================================================
+  # STATUS WEBSITE: branding (placeholder; to be replaced from the canvas
+  # board: logo, colours, intro text). Files in assets/ are copied to the
+  # site root, so a logo at assets/logo.svg is served as /logo.svg and a
+  # favicon as /favicon.ico (or set `favicon:` / `faviconSvg:` here).
+  # No custom CSS yet (`css:` / `themeUrl:` go here when the board is ready).
+  # =========================================================================
   logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  introTitle: "Carvix status"
+  introMessage: Live status of the Carvix website and services.
+
+  # =========================================================================
+  # STATUS WEBSITE: navigation (owner: Status and carvix.com, no GitHub link)
+  # =========================================================================
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
-
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+    - title: carvix.com
+      href: https://carvix.com
