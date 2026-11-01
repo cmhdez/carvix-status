@@ -17,9 +17,12 @@ sites:
   # The shopper website. Today carvix.com 308-redirects to www.carvix.com
   # (the current site, on Vercel); redirects are followed, so this stays
   # valid when the platform's web app takes over the apex at launch.
-  - name: Carvix website
+  # Name and icon per CX-00-20S (sites[0]); the slug stays `website` so the
+  # history and graphs carry over.
+  - name: Website (carvix.com)
     slug: website
     url: https://carvix.com
+    icon: https://status.carvix.com/globe.svg
 
   # --- Not yet live: enable at production launch -------------------------
   # Commented out, not listed, because they fail today and every failure
@@ -27,14 +30,16 @@ sites:
   #
   # The platform API's liveness check (apps/api/src/health, the same path
   # the load balancer probes). api.carvix.com does not resolve yet.
-  # - name: Carvix API
+  # - name: API
   #   slug: api
   #   url: https://api.carvix.com/health
+  #   icon: https://status.carvix.com/server.svg
   #
   # The Help Center (apps/web /help). 404 on the current carvix.com site.
   # - name: Help Center
   #   slug: help-center
   #   url: https://carvix.com/help
+  #   icon: https://status.carvix.com/life-buoy.svg
 
 assignees:
   - cmhdez
@@ -49,24 +54,115 @@ skipDeleteIssues: true
 # ===========================================================================
 status-website:
   cname: status.carvix.com
-  name: Carvix status
+  name: Carvix status                    # browser tab title
 
   # =========================================================================
-  # STATUS WEBSITE: branding (placeholder; to be replaced from the canvas
-  # board: logo, colours, intro text). Files in assets/ are copied to the
-  # site root, so a logo at assets/logo.svg is served as /logo.svg and a
-  # favicon as /favicon.ico (or set `favicon:` / `faviconSvg:` here).
-  # No custom CSS yet (`css:` / `themeUrl:` go here when the board is ready).
+  # STATUS WEBSITE: branding, per the master canvas boards CX-00-20 / 20B /
+  # 20C and the implementation notes on CX-00-20S (D561).
+  # Files in assets/ are copied to the SITE ROOT by the build, so
+  # assets/carvix-status.css is served as /carvix-status.css.
   # =========================================================================
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  introTitle: "Carvix status"
-  introMessage: Live status of the Carvix website and services.
+  logoUrl: https://status.carvix.com/carvix-wordmark.svg  # CAR ink + VIX red, both schemes inside the SVG
+  logoHref: https://status.carvix.com/
+  hideNavTitle: true                     # the wordmark is the name
+  favicon: https://status.carvix.com/favicon-192.png
+  faviconSvg: https://status.carvix.com/favicon.svg
+  introTitle: Carvix status
+  introMessage: See whether carvix.com, the Carvix API and the Help Center are working right now.
+
+  # Upptime has no customCSS field. themeUrl REPLACES Upptime's light and
+  # dark themes (the file carries both schemes). Upptime then loads its own
+  # global.css AFTER the theme, so the same file is listed again in `links`
+  # (which load after global.css) so its rules win the cascade.
+  themeUrl: https://status.carvix.com/carvix-status.css
+  links:
+    - rel: stylesheet
+      href: https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap
+    - rel: stylesheet
+      href: https://status.carvix.com/carvix-status.css
+  metaTags:
+    - name: color-scheme
+      content: light dark
 
   # =========================================================================
   # STATUS WEBSITE: navigation (owner: Status and carvix.com, no GitHub link)
+  # Setting navbar drops Upptime's GitHub link.
   # =========================================================================
   navbar:
     - title: Status
       href: /
     - title: carvix.com
-      href: https://carvix.com
+      href: https://www.carvix.com
+      target: _blank
+
+# ===========================================================================
+# WORDS: every page string, English (CX-00-20S section 3). Top level, NOT
+# under status-website. The Spanish site (es/ kit) takes the Spanish column.
+# Upptime placeholders: $DATE, $DURATION, $MINUTES, $UPTIME, $TIME, $NUMBER.
+# ===========================================================================
+i18n:
+  # Home
+  activeIncidents: Active incidents
+  allSystemsOperational: All systems operational   # also in carvix-status.css (section 5)
+  activeIncidentSummary: Opened $DATE
+  incidentReport: See details
+  scheduledMaintenance: Scheduled maintenance
+  scheduledMaintenanceSummaryStarts: Starts $DATE · $DURATION min
+  scheduledMaintenanceSummaryStarted: Started $DATE · $DURATION min
+  liveStatus: Live status
+  duration24H: 24h
+  duration7D: 7d
+  duration30D: 30d
+  duration1Y: 1y
+  durationAll: All
+  overallUptime: "Uptime: $UPTIME"
+  averageResponseTime: "Average response: $TIME ms"
+  up: Up                                  # also in carvix-status.css (section 6)
+  degraded: Slow                          # also in carvix-status.css (section 6)
+  down: Down                              # also in carvix-status.css (section 6)
+  ms: ms
+  pastScheduledMaintenance: Past maintenance
+  pastIncidents: Past incidents
+  pastIncidentsResolved: Resolved · $MINUTES min
+  loading: Loading…
+  footer: "[carvix.com](https://www.carvix.com) · Design with ❤ from Miami, Florida"
+  navGitHub: GitHub
+  locale: en-US
+  # Incident page
+  incidentTitle: Incident $NUMBER · Carvix status
+  incidentDetails: Incident details
+  incidentOngoing: Ongoing
+  incidentFixed: Resolved
+  incidentScheduled: Scheduled
+  incidentCompleted: Completed
+  incidentOpenedAt: Opened
+  incidentClosedAt: Resolved
+  startedAt: Started
+  startsAt: Starts
+  duration: Duration
+  durationMin: $DURATION minutes
+  incidentCommentSummary: Posted $DATE
+  incidentViewOnGitHub: View on GitHub    # hidden by carvix-status.css (section 7)
+  incidentBack: ← Back to status
+  # Site history page (/history/<site>)
+  overallUptimeTitle: Uptime
+  averageResponseTimeTitle: Average response
+  sevelDayResponseTime: 7-day response time   # Upptime spells the key so
+  responseTimeMs: Response time (ms)
+  # Error and rate-limit pages
+  errorTitle: Something went wrong
+  errorIntro: We couldn’t load the latest status.
+  errorText: Try again in a few moments.
+  errorHome: Go to the status page
+  rateLimitExceededTitle: Too many requests
+  rateLimitExceededIntro: This page reads live data from GitHub, and your connection has reached GitHub’s limit for the hour. Please wait and try again, or add a GitHub token below.
+  rateLimitExceededWhatDoesErrorMean: What does this mean?
+  rateLimitExceededErrorMeaning: GitHub allows each connection a set number of requests an hour, and this page has used them.
+  rateLimitExceededErrorHowCanFix: How can I fix it?
+  rateLimitExceededErrorFix: Wait an hour and the limit resets. If you have a GitHub account, you can add a personal access token for more requests.
+  rateLimitExceededGeneratePAT: How to create a personal access token
+  rateLimitExceededHasSet: You have a personal access token set.
+  rateLimitExceededRemoveToken: Remove token
+  rateLimitExceededGitHubPAT: GitHub personal access token
+  rateLimitExceededCopyPastePAT: Paste your token
+  rateLimitExceededSaveToken: Save token

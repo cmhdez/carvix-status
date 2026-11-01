@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -680 5536 691" role="img" aria-label="CARVIX">
+<!-- Design and created with ❤ by Carlos M. Hernandez -->
+<!-- The CARVIX wordmark (packages/config/src/wordmark.json, as composed by @carvix/ui-web CarvixWordmark).
+     CAR = tokens color.carvix.light.textPrimary, VIX = light.primary; dark scheme CAR #ECECEC, VIX #C9150C
+     (CX-00-20S: the logo is an <img>, so it follows the scheme itself). -->
+<style>.car{fill:#1A1A1A}.vix{fill:#A4130E}@media (prefers-color-scheme: dark){.car{fill:#ECECEC}.vix{fill:#C9150C}}</style>
+<path class="car" transform="translate(-42 0)" d="M781 0 913 -174H445C321 -174 248 -236 248 -341C248 -442 316 -495 445 -495H781L913 -669H445C209 -669 42 -533 42 -341C42 -146 214 0 445 0ZM2047 0 1628 -605C1599 -647 1558 -680 1496 -680C1432 -680 1392 -645 1363 -605L934 0H1176L1493 -447L1682 -174H1394L1270 0ZM3026 -425C3026 -578 2899 -669 2689 -669H2117V-495H2709C2784 -495 2819 -471 2819 -417C2819 -367 2786 -345 2710 -345H2117V0H2323V-178H2626L2794 0H3067L2865 -206C2967 -245 3026 -321 3026 -425Z"/>
+<path class="vix" transform="translate(3037 0)" d="M1123 -669H881L566 -214L257 -669H11L430 -64C466 -12 508 11 561 11C614 11 659 -14 694 -64ZM1406 0V-669H1199V0ZM2216 -669 2007 -464 1789 -669H1501L1852 -338L1488 0H1757L1981 -217L2211 0H2499L2136 -342L2482 -669Z"/>
+</svg>

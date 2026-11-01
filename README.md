@@ -10,7 +10,7 @@ The Carvix status page ([status.carvix.com](https://status.carvix.com)) and an u
 
 Only public, customer-facing endpoints, every 5 minutes. Never the staff console or anything behind a sign-in. The list lives in [`.upptimerc.yml`](./.upptimerc.yml).
 
-- **Carvix website**: https://carvix.com
+- **Website (carvix.com)**: https://carvix.com
 - At launch (listed in the config, commented out until they serve): the API health check (`https://api.carvix.com/health`) and the Help Center (`https://carvix.com/help`).
 
 ## How paging works
@@ -24,6 +24,18 @@ Only public, customer-facing endpoints, every 5 minutes. Never the staff console
 ## Adding a site
 
 Add an entry under `sites:` in `.upptimerc.yml` with a `name`, a short `slug` and the `url`, then push to `master`. Setup CI rebuilds the page, and the new site pages PagerDuty with no other change. Only add a URL once it serves, or it pages straight away.
+
+## Branding (D561)
+
+The page follows the master canvas boards CX-00-20 (home), CX-00-20C (incident report) and CX-00-20S (strings, config and CSS). English only (owner, 2026-11-01). Everything is Upptime configuration; Upptime's code is not changed.
+
+- **Words**: every page string is a key under `i18n:` in `.upptimerc.yml` (CX-00-20S section 3). Unset keys fall back to Upptime's English.
+- **Look**: [`assets/carvix-status.css`](./assets/carvix-status.css), set as `status-website.themeUrl` (it replaces Upptime's light and dark themes and carries both schemes). Upptime loads its own `global.css` after the theme, so the same file is also listed in `status-website.links`, which load later and win the cascade. Sections 1 to 10 are the board's CSS as drawn; 11 and 12 are the chip icons and the cascade fixes found when the built page was compared with the boards.
+- **Fonts**: Inter and Montserrat through `status-website.links` (Google Fonts).
+- **Assets**: everything in `assets/` is copied to the site root by the build (`assets/carvix-status.css` is served as `/carvix-status.css`): the CARVIX wordmark (both colour schemes inside the SVG), the favicon (the carvix.com browser-tab icon) and the Lucide site icons (globe, server, life-buoy).
+- **Fixed by Upptime** (accepted on CX-00-20S): incident titles and the automatic "Resolved" update are written in English by the monitor, and a slow site's title must keep the word "degraded"; the response graph is Upptime's PNG, which the CSS can only grey; "Completed" on past maintenance and the all-clear emoji are fixed text, so the CSS hides them and repeats the sentence; the update times link to GitHub (only "View on GitHub" is hidden).
+
+To change a colour or a word: edit the CSS or the `i18n:` key, push to `master`, and Static Site CI rebuilds the page.
 
 ## Status
 
