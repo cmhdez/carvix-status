@@ -125,7 +125,7 @@ i18n:
   pastIncidents: Past incidents
   pastIncidentsResolved: Resolved · $MINUTES min
   loading: Loading…
-  footer: "[carvix.com](https://www.carvix.com) · Design with ❤ from Miami, Florida"
+  footer: "[carvix.com](https://www.carvix.com) · Design with <span class=\"cx-heart\">❤</span> from Miami, Florida"
   navGitHub: GitHub
   locale: en-US
   # Incident page

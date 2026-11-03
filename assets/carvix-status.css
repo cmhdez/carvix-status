@@ -39,6 +39,7 @@
   --cx-slow: #8A5A00; --cx-slow-bg: #FFF6E0;   /* warning / warningContainer */
   --cx-down: #A4130E; --cx-down-bg: #FBEAEA;   /* error / errorContainer */
   --cx-info: #4D4D4D; --cx-info-bg: #F5F5F6;   /* info / infoContainer (maintenance) */
+  --cx-heart: #A4130E;           /* brand.primary (the credit line's heart) */
   --cx-graph-filter: grayscale(1);
 }
 @media (prefers-color-scheme: dark) {
@@ -68,6 +69,7 @@
     --cx-slow: #E0B25C; --cx-slow-bg: #3A2E14;
     --cx-down: #F59992; --cx-down-bg: #3A1614;
     --cx-info: #C4C4C4; --cx-info-bg: #262626;
+    --cx-heart: #F59992;          /* dark: the brand tint, AA on #1A1A1A */
     --cx-graph-filter: grayscale(1) brightness(.55);
   }
 }
@@ -148,6 +150,7 @@ dl dd { margin: 0; }
 /* 8. Footer: the credit line (i18n.footer), full contrast */
 footer { opacity: 1; color: var(--cx-ink2); font-size: 14px; border-top: 1px solid var(--card-border-color); padding: 24px 16px 0; font-variant-emoji: text; }
 main > footer { border: 0; padding: 0; }
+footer .cx-heart { color: var(--cx-heart); }   /* the ❤ in the credit line, brand red (owner, 2026-11-03) */
 
 /* 9. Tablet and phone */
 @media (max-width: 599px) {
